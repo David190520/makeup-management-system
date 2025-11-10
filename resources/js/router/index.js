@@ -1,20 +1,17 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-// components
-import Home from '../pages/Home.vue';
-import login from '../pages/Login.vue';
 
 const routes = [
     {
         path: '/',
         name: 'home',
-        component: Home,
+        component: () => import('../pages/Home.vue'),
         meta: { requiresAuth: true },
     },
     {
         path: '/login',
         name: 'login',
-        component: login,
+        component: () => import('../pages/Login.vue'),
         meta: { guest: true }
     }
 ]
@@ -24,8 +21,9 @@ const router = createRouter({
     routes,
 })
 
-// Navigation guard for authentication
+// navigation guard for authentication
 router.beforeEach((to, from, next) => {
-    // for now just allow all routes
     next();
 })
+
+export default router;
